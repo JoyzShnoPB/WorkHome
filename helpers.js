@@ -7,3 +7,9 @@ function getInput() {
     const input = prompt("Your email");
     return input;
 } /* string */
+
+function isEmailTaken (users, email) {
+    return users.some(function(users) {
+        return users.email === email; 
+    });
+}

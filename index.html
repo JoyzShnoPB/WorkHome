@@ -1,8 +1,7 @@
 <html>
     <head>
-        <script src="./helpers.js"></script>
-        <script src="./main.js"></script>
-        
+     
+
         <style>
             .error {
                 color: red;
@@ -10,18 +9,33 @@
             .success {
                 color: green;
             }
+            .content {
+                display: none;
+            }
+            .show {
+                display: block;
+            }
         </style>
     </head>
     <body>
+        <div id="tabs">
+            Tabs <br>
+            <span id="login" data-role="bobo">Login</span>
+            <span id="registation">Registration</span>
+        </div>
+        <br>
         <div>
             Type your email
-            <input id="input" type="text" />
+            <input class="" id="input" type="text" />
+            Type your password
+            <input id="password" type="password" />
+
             <button id="button">OK</button>
             <div id="message"></div>
         </div>
         <br>
-        <button id="hw"> homeWork</button>
-        <script src="./home.js"></script>
-        <script src="./home3-2.js"></script>
+        <script src="./helpers.js"></script>
+        <script src="./main.js"></script>
+
     </body>
 </html>
