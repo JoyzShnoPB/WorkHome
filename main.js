@@ -1,81 +1,160 @@
 const SUCCESS_CLASS_NAME = "success";
 const ERROR_CLASS_NAME = "error";
 const ENTER_CHAR_CODE = 13;
+
 const users = [
     {
-        email: "petro@gmail.com",
-        password: 123456
+        email: "john@gmail.com",
+        password: "123456"
     },
     {
-        email: "vasya@gmail.com",
-        password: 134567
+        email: "vasyl@gmail.com",
+        password: "test"
+    },
+    {
+        email: "petro@gmail.com",
+        password: "111111"
     }
 ];
-const input = document.getElementById("input");
-const button = document.getElementById("button");
-const message = document.getElementById("message");
-const password = document.getElementById("password");
-const tabs = document.getElementById("tabs");
-const login = document.getElementById("login");
-const registation = document.getElementById("registation");
 
-const passValue = password.value;
+function activateTabs() {
+    const tabsElement = document.getElementById("tabs");
 
-console.dir(tabs);
-
-function main() {
-    function choose () {
-        const role = click.target.dataset.role;
-        
-    }
-    
-    
-    function submit() {
-        let emailValue = input.value;
-        const isValid = isEmailValid(emailValue);
-        console.log(emailValue);
-        message.className = isValid ? SUCCESS_CLASS_NAME : ERROR_CLASS_NAME;
-        message.innerHTML = isValid ? "Succes" : "Try another one. And another one";
-            if (isValid) { users.push({
-                email: emailValue,
-                password: passValue
+    tabsElement.addEventListener("click", function(event) {
+        const role = event.target.dataset.role;
+        console.log(event);
+        if (role) {
+            const contentElements = document.querySelectorAll(".content");
+            contentElements.forEach(function(element) {
+                element.classList.remove("show");
+                if (element.id === role) {
+                    element.classList.add("show");
+                }
             });
-        if (isEmailTaken) {
-            message.className = ERROR_CLASS_NAME;
-            message.innerHTML = "Email is taken. Try another one";
-        }
-    }}
 
-    button.addEventListener("click", function() {
-        submit();
+            const tabsElements = document.querySelectorAll(".tab");
+            tabsElements.forEach(function(element) {
+                element.classList.remove("active");
+                if ("tab-" + role === element.id) {
+                    element.classList.add("active");
+                }
+            });
+        }
     });
 
-    // password.addEventListener("keypress", function(event) {
-    //     if (event.charCode === ENTER_CHAR_CODE) {
-    //         submit();
-    //     }
-    // }
+}
+
+/**
+ * 
+ */
+function login(email, password) {
+    if (isUserExists(users, email, password)) {
+        console.log("Welcome");
+    }
+    else {
+        console.log("User is invalid");        
+    }
+}
+
+function registration(email, password, passwordAgain) {
+    if (!isEmailValid(email)) {
+        console.log("Invalid email");
+        return;
+    }
+    else if (isEmailTaken(users, email)) {
+        console.log("Email is taken");
+        return;
+    }
+    else if (password !== passwordAgain) {
+        console.log("Password are different");
+        return;
+    }
+
+
+    users.push({
+        email: email,
+        password: password
+    });    
+}
+
+function setupForms() {
+    const onSubmit = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const action = event.target.id.replace(/^form-/, "");
+        console.log("action", action);
+
+        const email = event.target.querySelector("[name=login]").value;
+        const password = event.target.querySelector("[name=password]").value;
+        console.log(login, password);
+
+        switch (action) {
+        case "login":
+            login(email, password);
+            break;
+        case "registration":
+            const passwordAgain = event.target.querySelector("[name=passwordAgain]").value;
+            registration(email, password, passwordAgain);
+            break;
+        default:
+            break;
+        }
+
+        return false;
+    };
+
+    document.querySelectorAll(".form").forEach(function(element) {
+        element.addEventListener("submit", onSubmit);
+    });
+}
+
+function main() {
+    activateTabs();
+    setupForms();
+    // dz1
+ let dz = document.getElementById("dz");
+ dz.addEventListener("click", function() {
+    dz.style.margin = "10";
+ })
+    //dz2
+    let array = [
+        {
+            loc: "element 1"
+        },
+        {
+            loc: "element 2"
+        },
+        {
+            loc: "element 3"
+        }
+    ];
+
+    let dz2 = document.getElementById("dz2");
+    dz2.addEventListener("click", function() {
+        let bobo = event.target.innerText;
+        let check = isLocExist(array, bobo);
+        if (check) {
+        console.log("u are welcome");
+       } else {
+        // console.dir(event.target.innerText);
+        console.log(array); 
+       array.push({
+           loc: bobo
+       });
+       console.log(array);
+       return;
+    }
+        
+    })
+    function isLocExist (array, loc) {
+        return array.some(function(array) {
+            return array.loc === loc; 
+        });
+    }
 }
 
 window.onload = function() {
     main();
 };
 
-function activateTabs() { // фун-ция, которая активирует наши табы
-    const tabsElement = document.getElementById("tabs"); // даем js-у доступ к этому div-у
-
-    tabsElement.addEventListener("click", function(event) { // вешаем событие на этот div
-        console.log(event);
-        const role = event.target.dataset.role; // event.target - выделяет элемент, на котором произошло событие. 
-        //в целом же - мы отслеживаем (?) элемент, который имеет dataset.role 
-        if (role) { // если отследили
-            const contentElements = document.querySelectorAll(".content"); // возвращает массив, в котором
-            // перечень классов .content
-            contentElements.forEach(function a(element) { //перебираем этот массив классов через foreach,
-                //коорый обрабатывает каждый элемент функцией а
-                console.log("class", element.className); // присваиваем ему className (которого )
-            });
-        }
-    });
-
-} 

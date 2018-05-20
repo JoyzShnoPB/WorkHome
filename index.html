@@ -1,41 +1,83 @@
 <html>
     <head>
-     
-
+        <script type="text/javascript" src="helpers.js"></script>
         <style>
-            .error {
-                color: red;
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
             }
-            .success {
-                color: green;
+            body {
+                font-family: Verdana, Arial, sans-serif;
             }
+            .error {color: red}
+            .success {color: green}
             .content {
                 display: none;
+                margin: 0 20px;
+                padding: 20px;
+                border: 1px solid green;
             }
             .show {
                 display: block;
             }
-        </style>
+            .tabs {
+                padding: 20px 20px 0 20px;
+            }
+            .tab {
+                display: inline-block;
+                padding: 10px 20px;
+                background: #fff;
+                cursor: pointer;
+                /* box-shadow: 0 0 10px #ccc; */
+            }
+            .tab:hover,
+            .tab.active {
+                background: green;
+                color: #fff;
+            }
+            #dz {
+                color: blue;
+                margin: 10%;
+            }
+        </style>	
     </head>
     <body>
-        <div id="tabs">
-            Tabs <br>
-            <span id="login" data-role="bobo">Login</span>
-            <span id="registation">Registration</span>
+        <div id="tabs" class="tabs">
+            <div id="tab-login" class="tab active" data-role="login">Login</div>
+            <div id="tab-registration" class="tab" data-role="registration">Registration</div>
         </div>
-        <br>
-        <div>
-            Type your email
-            <input class="" id="input" type="text" />
-            Type your password
-            <input id="password" type="password" />
 
-            <button id="button">OK</button>
-            <div id="message"></div>
+        <div class="content show" id="login">
+            <form class="form" id="form-login" data-tab="login">
+                <input type="text" name="login" placeholder="login" />
+                <input type="password" name="password" placeholder="password" />
+                <input type="submit" value="Ok" />
+            </form>
         </div>
-        <br>
-        <script src="./helpers.js"></script>
-        <script src="./main.js"></script>
 
+        <div class="content" id="registration">
+            <form class="form" id="form-registration" data-tab="registration">
+                <input type="text" name="login" placeholder="login" />
+                <input type="password" name="password" placeholder="Password" />
+                <input type="password" name="passwordAgain" placeholder="Password again" />
+                <input type="submit" value="Ok" />
+            </form>
+        </div>
+        <hr>
+        <div id="dz">
+            some text
+        </div>
+        <ul id="dz2" data-ul="bobo">
+            <li>
+                element 1
+            </li>
+            <li>
+                element 4
+            </li>
+        </ul>
+
+        <script type="text/javascript" src="main.js"></script>
     </body>
 </html>

@@ -13,3 +13,8 @@ function isEmailTaken (users, email) {
         return users.email === email; 
     });
 }
+function isUserExists(users, email, password) {
+	return users.some(function(user) {
+		return user.email.toLowerCase() === email.toLowerCase() && user.password === password;
+	});
+}
